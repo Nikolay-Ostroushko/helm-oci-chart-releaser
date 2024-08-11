@@ -24,10 +24,10 @@ inputs:
     required: true
     description: OCI registry
   registry_username:
-    required: true
+    required: false
     description: OCI registry username
   registry_password:
-    required: true
+    required: false
     description: OCI registry password
   update_dependencies:
     required: false
@@ -40,11 +40,11 @@ outputs:
 runs:
   using: composite
   steps:
-    - name: Helm | Login
-      shell: bash
-      run: echo ${{ inputs.registry_password }} | helm registry login -u ${{ inputs.registry_username }} --password-stdin ${{ inputs.registry }}
-      env:
-        HELM_EXPERIMENTAL_OCI: '1'
+    # - name: Helm | Login
+    #   shell: bash
+    #   run: echo ${{ inputs.registry_password }} | helm registry login -u ${{ inputs.registry_username }} --password-stdin ${{ inputs.registry }}
+    #   env:
+    #     HELM_EXPERIMENTAL_OCI: '1'
 
     - name: Helm | Dependency
       if: inputs.update_dependencies == 'true'
